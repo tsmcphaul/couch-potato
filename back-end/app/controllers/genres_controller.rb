@@ -5,7 +5,7 @@ class GenresController < ApplicationController
   def index
     genres = Genre.all
 
-    render json: genres
+    render json: GenreSerializer.new(genre)
   end
 
   # GET /genres/1
@@ -18,7 +18,7 @@ class GenresController < ApplicationController
     genre = Genre.new(genre_params)
 
     if genre.save
-      render json: genre, status: :created, location: genre
+      render json: GenreSerializer.new(genre), status: :created, location: genre
     else
       render json: genre.errors, status: :unprocessable_entity
     end
@@ -35,6 +35,7 @@ class GenresController < ApplicationController
 
   # DELETE /genres/1
   def destroy
+    genre = Genre.find(params[:id])
     genre.destroy
   end
 

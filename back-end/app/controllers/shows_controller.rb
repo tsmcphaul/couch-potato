@@ -5,7 +5,7 @@ class ShowsController < ApplicationController
   def index
     shows = Show.all
 
-    render json: shows
+    render json: ShowSerializer.new(shows)
   end
 
   # GET /shows/1
@@ -18,7 +18,7 @@ class ShowsController < ApplicationController
     show = Show.new(show_params)
 
     if show.save
-      render json: show, status: :created, location: show
+      render json: ShowSerializer.new(show), status: :created, location: show
     else
       render json: show.errors, status: :unprocessable_entity
     end
@@ -35,6 +35,7 @@ class ShowsController < ApplicationController
 
   # DELETE /shows/1
   def destroy
+    show = Show.find(params[:id])
     show.destroy
   end
 
