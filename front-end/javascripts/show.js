@@ -9,5 +9,8 @@ class Show {
         this.rating = show.rating; 
     }
 
+    static shows = [];
+
+     
     
 }
